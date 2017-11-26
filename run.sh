@@ -38,8 +38,8 @@ fi
 
 # Check env file
 # https://github.com/builtinnya/dotenv-shell-loader
-source $WERCKER_STEP_ROOT/src/dotenv-shell-loader.sh
-dotenv
+# source $WERCKER_STEP_ROOT/src/dotenv-shell-loader.sh
+# dotenv
 
 # Check variables
 if [ -z "$(step_var 'KEY')" ]; then
@@ -101,7 +101,7 @@ STEP_TARGET_TEMPLATE=$(step_var 'TARGET_TEMPLATE')
 
 STEP_DIR=$WERCKER_STEP_ROOT
 
-source ./src/main.sh
+source $STEP_DIR/src/main.sh
 
 
 
