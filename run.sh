@@ -67,6 +67,11 @@ if [ -z "$(step_var 'SCHEDULE_EXPRESSION')" ]; then
   exit 1
 fi
 
+if [ -z "$(step_var 'SCHEDULE_STATE')" ]; then
+  error "Please set the 'schedule-state' variable"
+  exit 1
+fi
+
 if [ -z "$(step_var 'CLUSTER_NAME')" ]; then
   error "Please set the 'cluster-name' variable"
   exit 1
@@ -91,6 +96,8 @@ STEP_AWS_DEFAULT_REGION=$(step_var 'REGION')
 #FOR AWS EVENT RULE
 STEP_SCHEDULE_RULE_NAME=$(step_var 'SCHEDULE_RULE_NAME')
 STEP_SCHEDULE_EXPRESSION=$(step_var 'SCHEDULE_EXPRESSION')
+STEP_SCHEDULE_STATE=$(step_var 'SCHEDULE_STATE')
+STEP_SCHEDULE_DESCRIPTION=$(step_var 'SCHEDULE_DESCRIPTION')
 
 #FOR AWS EVENT TARGET
 STEP_CLUSTER=$(step_var 'CLUSTER_NAME')

@@ -10,6 +10,8 @@
 # 
 # echo $STEP_SCHEDULE_RULE_NAME
 # echo $STEP_SCHEDULE_EXPRESSION
+# echo $STEP_SCHEDULE_STATE
+# echo $STEP_SCHEDULE_DESCRIPTION
 # 
 # echo $STEP_CLUSTER
 # echo $STEP_TASK_COUNT
@@ -59,7 +61,12 @@ rm -f $RANDO
 cat $TARGET_FILE
 
 warn "Put rule : $STEP_SCHEDULE_RULE_NAME"
-aws events put-rule --profile ${STEP_AWS_PROFILE} --name ${STEP_SCHEDULE_RULE_NAME} --schedule-expression "${STEP_SCHEDULE_EXPRESSION}"
+aws events put-rule \
+    --profile ${STEP_AWS_PROFILE} \
+    --name ${STEP_SCHEDULE_RULE_NAME} \
+    --schedule-expression "${STEP_SCHEDULE_EXPRESSION}" \
+    --state ${STEP_SCHEDULE_STATE} \
+    --description  "${STEP_SCHEDULE_DESCRIPTION}"
 
 warn "Put Target: $TARGET_FILE"
 aws events put-targets \
