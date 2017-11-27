@@ -29,7 +29,7 @@ fi
 warn "Collection Input Data for Target template"
 TASK_DEFINITION_ARN=$(aws ecs describe-task-definition --profile ${STEP_AWS_PROFILE} --task-definition ${STEP_TASK_DEFINITION} --query taskDefinition.taskDefinitionArn --output text)
 _AWS_ACCOUNT=$(aws sts get-caller-identity --profile ${STEP_AWS_PROFILE} --output text --query 'Account')
-ROLE_ARN=arn:aws:iam::${_AWS_ACCOUNT}:role/ecsServiceRole
+ROLE_ARN=arn:aws:iam::${_AWS_ACCOUNT}:role/ecsEventsRole
 CLUSTER_ARN=$(aws ecs describe-clusters --profile ${STEP_AWS_PROFILE} --clusters ${STEP_CLUSTER} --query clusters[0].clusterArn --output text)
 
 #########
