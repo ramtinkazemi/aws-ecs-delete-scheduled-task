@@ -57,8 +57,8 @@ if [ -z "$(step_var 'REGION')" ]; then
   exit 1
 fi
 
-if [ -z "$(step_var 'SCHEDULE_RULE_NAME')" ]; then
-  error "Please set the 'schedule-rule-name' variable"
+if [ -z "$(step_var 'SCHEDULE_NAME')" ]; then
+  error "Please set the 'schedule-name' variable"
   exit 1
 fi
 
