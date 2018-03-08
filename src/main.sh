@@ -32,7 +32,7 @@ aws events remove-targets \
     --ids "${STEP_TARGET_ID}" 
 
 
-warn "Delete rule: $STEP_SCHEDULE_NAME"
+warn "Delete rule: $STEP_SCHEDULE_RULE_NAME"
 aws events delete-rule \
     --profile ${STEP_AWS_PROFILE} \
     --name "${STEP_SCHEDULE_RULE_NAME}" 
