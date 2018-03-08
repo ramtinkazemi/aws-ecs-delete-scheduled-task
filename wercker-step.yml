@@ -1,6 +1,6 @@
 name: aws-ecs-delete-scheduled-task
 version: 0.0.1
-description: Remove Scheduled Task from AWS ECS
+description: Delete Scheduled Task from AWS ECS
 keywords:
   - aws
   - ecs
