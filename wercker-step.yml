@@ -26,5 +26,5 @@ properties:
   # Step 2: Defining target
   target-id:
     type: string
-    required: true      
+    required: true
   
