@@ -18,7 +18,7 @@ type_exists() {
   return 1
 }
 
-STEP_PREFIX="WERCKER_AWS_ECS_SCHEDULED_TASK"
+STEP_PREFIX="WERCKER_AWS_ECS_REMOVE_SCHEDULED_TASK"
 step_var() {
   echo $(tmp=${STEP_PREFIX}_$1 && echo ${!tmp}) 
 }
@@ -62,28 +62,9 @@ if [ -z "$(step_var 'SCHEDULE_RULE_NAME')" ]; then
   exit 1
 fi
 
-if [ -z "$(step_var 'SCHEDULE_EXPRESSION')" ]; then
-  error "Please set the 'schedule-expression' variable"
+if [ -z "$(step_var 'TARGET_ID')" ]; then
+  error "Please set the 'target-id' variable"
   exit 1
-fi
-
-if [ -z "$(step_var 'SCHEDULE_STATE')" ]; then
-  error "Please set the 'schedule-state' variable"
-  exit 1
-fi
-
-if [ -z "$(step_var 'CLUSTER_NAME')" ]; then
-  error "Please set the 'cluster-name' variable"
-  exit 1
-fi
-
-if [ -z "$(step_var 'TASK_DEFINITION_NAME')" ]; then
-  error "Please set the 'task-definition-name' variable"
-  exit 1
-fi
-
-if [ -z "$(step_var 'TARGET_TEMPLATE')" ]; then
-  error "Please set the 'target-template' variable"  
 fi
 
 # INPUT Variables for main.sh
@@ -95,16 +76,9 @@ STEP_AWS_DEFAULT_REGION=$(step_var 'REGION')
 
 #FOR AWS EVENT RULE
 STEP_SCHEDULE_RULE_NAME=$(step_var 'SCHEDULE_RULE_NAME')
-STEP_SCHEDULE_EXPRESSION=$(step_var 'SCHEDULE_EXPRESSION')
-STEP_SCHEDULE_STATE=$(step_var 'SCHEDULE_STATE')
-STEP_SCHEDULE_DESCRIPTION=$(step_var 'SCHEDULE_DESCRIPTION')
 
 #FOR AWS EVENT TARGET
-STEP_CLUSTER=$(step_var 'CLUSTER_NAME')
-STEP_TASK_COUNT=$(step_var 'TASK_COUNT')
-STEP_TASK_DEFINITION=$(step_var 'TASK_DEFINITION_NAME')
 STEP_TARGET_ID=$(step_var 'TARGET_ID')
-STEP_TARGET_TEMPLATE=$(step_var 'TARGET_TEMPLATE')
 
 STEP_DIR=$WERCKER_STEP_ROOT
 
