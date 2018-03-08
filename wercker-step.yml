@@ -27,4 +27,3 @@ properties:
   target-id:
     type: string
     required: true
-  
