@@ -28,14 +28,14 @@ ROLE_ARN=arn:aws:iam::${_AWS_ACCOUNT}:role/ecsEventsRole
 warn "Remove target : $STEP_TARGET_ID"
 aws events remove-targets \
     --profile ${STEP_AWS_PROFILE} \
-    --rule "${STEP_SCHEDULE_NAME}" \
+    --rule "${STEP_SCHEDULE_RULE_NAME}" \
     --ids "${STEP_TARGET_ID}" 
 
 
 warn "Delete rule: $STEP_SCHEDULE_NAME"
 aws events delete-rule \
     --profile ${STEP_AWS_PROFILE} \
-    --name "${STEP_SCHEDULE_NAME}" 
+    --name "${STEP_SCHEDULE_RULE_NAME}" 
 
 
 
