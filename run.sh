@@ -59,7 +59,7 @@ fi
 
 echo "HERE 1"
 
-if [ -z "$(step_var 'RULE_NAME')" ]; then
+if [ -z "$(step_var 'SCHEDULE_RULE_NAME')" ]; then
   error "Please set the 'schedule-rule-name' variable"
   exit 1
 fi
@@ -77,7 +77,7 @@ STEP_AWS_SECRET_ACCESS_KEY=$(step_var 'SECRET')
 STEP_AWS_DEFAULT_REGION=$(step_var 'REGION')
 
 #FOR AWS EVENT RULE
-STEP_SCHEDULE_RULE_NAME=$(step_var 'RULE_NAME')
+STEP_SCHEDULE_RULE_NAME=$(step_var 'SCHEDULE_RULE_NAME')
 
 #FOR AWS EVENT TARGET
 STEP_TARGET_ID=$(step_var 'TARGET_ID')
