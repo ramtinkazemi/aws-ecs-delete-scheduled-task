@@ -25,17 +25,25 @@ _AWS_ACCOUNT=$(aws sts get-caller-identity --profile ${STEP_AWS_PROFILE} --outpu
 ROLE_ARN=arn:aws:iam::${_AWS_ACCOUNT}:role/ecsEventsRole
 #CLUSTER_ARN=$(aws ecs describe-clusters --profile ${STEP_AWS_PROFILE} --clusters ${STEP_CLUSTER} --query clusters[0].clusterArn --output text)
 
-warn "Remove target : $STEP_TARGET_ID"
-aws events remove-targets \
-    --profile ${STEP_AWS_PROFILE} \
-    --rule "${STEP_SCHEDULE_RULE_NAME}" \
-    --ids "${STEP_TARGET_ID}" 
+# warn "Remove target : ${STEP_TARGET_ID}"
+# aws events remove-targets \
+#     --profile ${STEP_AWS_PROFILE} \
+#     --rule "${STEP_SCHEDULE_RULE_NAME}" \
+#     --ids "${STEP_TARGET_ID}" 
 
 
-warn "Delete rule: $STEP_SCHEDULE_RULE_NAME"
-aws events delete-rule \
-    --profile ${STEP_AWS_PROFILE} \
-    --name "${STEP_SCHEDULE_RULE_NAME}" 
+# warn "Delete rule: ${STEP_SCHEDULE_RULE_NAME}"
+# aws events delete-rule \
+#     --profile ${STEP_AWS_PROFILE} \
+#     --name "${STEP_SCHEDULE_RULE_NAME}" 
 
-
-
+rules=$(aws --profile ${STEP_AWS_PROFILE} events list-rules --name-prefix $APP_NAME --output text --query "Rules[*].Name")
+for rule in $rules; do 
+    targets=$(aws --profile ${STEP_AWS_PROFILE} events list-targets-by-rule --rule $rule --output text --query "Targets[*].Id")
+    for target in $targets; do 
+        warn "Removing target: $target"     
+        aws --profile dev events remove-targets --rule $rule --ids $target;
+    done
+    warn "Deleting rule: $rule"
+    aws --profile dev events delete-rule --name $rule
+done
